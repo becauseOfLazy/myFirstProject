@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.UserSuggestDao">
+	<!-- 分页查询留言对象 -->
+	<select id="doGetAllUserSuggest" resultType="leftMessage">
+		select id,uId,substring(suggestText,1,10) suggestText,createdTime,status 
+		from t_message limit #{entity.start},#{entity.pageSize}
+	</select>
+	<!-- 获取留言总数 -->
+	<select id="getAllSuggestCount" resultType="int">
+		select count(*) from t_message
+	</select>
+	
+	<!-- 根据id获取留言对象 -->
+	<select id="doGetSuggestInfoById" resultType="leftMessage">
+		select * from t_message where id =#{id}
+	</select>
+	<!-- 更新留言对象 -->
+	<update id="doUpdateSuggestState">
+		update t_message set 
+		status = #{entity.status},
+		updateTime = #{entity.updateTime} 
+		where id = #{entity.id}
+	</update>
+	<!-- 条件查询留言 -->
+	<select id="doSearchSuggestByState" resultType="leftMessage">
+		select id,uId,substring(suggestText,1,10) suggestText,createdTime,status 
+		from t_message 
+		where status = #{status} and createdTime > #{lastTime}
+	</select>
+</mapper>

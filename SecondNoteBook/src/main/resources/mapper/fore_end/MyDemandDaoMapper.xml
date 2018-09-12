@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.MyDemandDao">
+	<!-- 查找所有需求单 -->
+	<select id="toGetAllDemandObject" resultType="demand">
+		select * from t_demandlist where uId = #{uId}
+	</select>
+	<!-- 删除需求单根据Id -->
+	<delete id="toDeleteDemandObject">
+		delete from t_demandlist where id = #{id} and uId = #{uId}
+	</delete>
+	<!-- 查找需求单根据Id -->
+	<select id="toGetDemandById" resultType="demand">
+		select * from t_demandlist where  id = #{id} and uId = #{uId}
+	</select>
+	<!-- 修改需求单信息 -->
+	<update id="toUpdateDemand">
+		update t_demandlist set prodType=#{entity.prodType},
+		prodName=#{entity.prodName},
+		minPrice=#{entity.minPrice},
+		maxPrice=#{entity.maxPrice},
+		payType=#{entity.payType},
+		phoneNumber=#{entity.phoneNumber},
+		note=#{entity.note} where id = #{entity.id} and uId = #{entity.uId}
+	</update>
+	
+</mapper>

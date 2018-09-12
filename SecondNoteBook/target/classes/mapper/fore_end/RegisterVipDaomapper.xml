@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.RegisterVipDao">
+   <!-- 修改用户的角色等级 -->
+	<update id="updateUserRole">
+		update t_user set roleId = 2 where id = #{uId}
+	</update>
+	<!-- 插入用户个人详情 -->
+	<insert id="saveUserDetailObject">
+		insert into t_userdetail values(null,
+		#{entity.uId},
+		#{entity.name},
+		#{entity.sex},
+		#{entity.age},
+		#{entity.idCard},
+		#{entity.avatar_img},
+		#{entity.education},
+		#{entity.phoneNumber},
+		#{entity.note},
+		#{entity.createdTime},
+		#{entity.updateTime}
+		)
+	</insert>
+	<!-- 保存验证码信息 -->
+	<insert id="savePhoneCodeObject">
+		insert into t_mobilephonecode values(null,
+		#{entity.phoneNumber},
+		#{entity.phoneCode},
+		#{entity.title},
+		#{entity.createdTime},
+		#{entity.status},
+		#{entity.uuId}
+		)
+	</insert>
+	<!-- 查询验证码 -->
+	<select id="getPhoneCodeMsg" resultType="String">
+		select phoneCode from t_mobilephonecode 
+		where uuId = #{uuId} and phoneNumber = #{phoneNumber}
+	</select>
+</mapper>

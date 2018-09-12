@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.MyProdDao">
+	<!-- 查找所有商品 -->
+	<select id="doGetMyProdObject" resultType="product">
+		select * from t_prodlist where uId = #{uId}
+	</select>
+	<!-- 查询商品信息通过id -->
+	<select id="doGetProdInfoById" resultType="product">
+		select * from t_prodlist where id = #{id} and uId = #{uId}
+	</select>
+	<!-- 修改商品的上架情况 -->
+	<update id="doUpdateMyProdObject">
+		update t_prodlist 
+		set prodName = #{entity.prodName},
+		title = #{entity.title},
+		prodPrice = #{entity.prodPrice},
+		contactName = #{entity.contactName},
+		phoneNumber = #{entity.phoneNumber},
+		valid = #{entity.valid},
+		buyType = #{entity.buyType} where id = #{entity.id}
+	</update>
+</mapper>

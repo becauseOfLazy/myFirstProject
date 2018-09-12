@@ -1,0 +1,41 @@
+/*ÎªÄãÍÆ¼ö*/
+ #recommended{
+     height: 250px;
+     margin-top: 38px;
+ }
+ #recommended p{
+     margin-bottom:12px;
+     font-size: 24px;
+     font-weight: bold;
+     color:#333333;
+     margin-bottom: 15px;
+ }
+ #recommended p span{
+     width: 150px;
+     height: 20px;
+     background-color: #333333;
+     color:#f0f0f0;
+     margin-left: 20px;
+     font-size: 14px;
+     padding: 2px 5px;
+ }
+ #demo{
+ 	border:1px solid #ddd; 	
+  }
+ #demo1,#demo2{
+     width: 1000px;
+     text-align: center;
+ }
+ #demo1 div,#demo2 div{
+     width:24%;
+ }
+ #demo1 p,#demo2 p{
+     font-size: inherit;
+     color:#333333;
+     font-size: 12px;
+     margin-top: 10px;
+ }
+ #demo1 .detail_img1,#demo2 .detail_img1{
+    margin-left: 20px;
+    cursor: pointer;
+ }

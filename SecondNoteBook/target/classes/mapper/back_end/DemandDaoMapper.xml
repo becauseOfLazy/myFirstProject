@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.DemandManageDao">
+	<!-- 获取所有需求单对象 -->
+	<select id="doGetDemandList" resultType="demand">
+		select * from t_demandlist limit #{entity.start},#{entity.pageSize}
+	</select>
+	<!-- 删除需求单通过Id -->
+	<delete id="delDemandObjectById">
+		delete from t_demandlist where id = #{id}
+	</delete>
+	<!-- 获取当前需求单数量 -->
+	<select id="doGetDemandCount" resultType="int">
+		select count(*) from t_demandlist
+	</select>
+	<!-- 查询需求单对象 -->
+	<select id="doSearchDemandObject" resultType="demand">
+		select * from t_demandlist <include refid="whereQuery"/>
+	</select>
+	<sql id="whereQuery">
+		<where>
+			<if test="searchName!=null and searchName!=''">
+				prodName like "%"#{searchName}"%"
+			</if>
+			<if test="valid!=-1 ">
+				and status = #{status}
+			</if>
+		</where>
+	</sql>
+</mapper>

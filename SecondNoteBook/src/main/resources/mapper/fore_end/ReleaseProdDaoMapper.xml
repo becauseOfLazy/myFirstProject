@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.ReleaseProdDao">
+<!-- 保存商品信息 -->
+	<insert id="saveProdObject">
+		insert into t_prodlist values(
+			null,
+			#{entity.uId},
+			#{entity.prodName},
+			#{entity.title},
+			#{entity.prodPrice},
+			#{entity.phoneNumber},
+			#{entity.contactName},
+			#{entity.city},
+			#{entity.warrantyStatus},
+			#{entity.attenNum},
+			#{entity.beginDate},
+			#{entity.endDate},
+			#{entity.status},
+			#{entity.note},
+			#{entity.buyType},
+			#{entity.updateTime}
+		)
+	</insert>
+	<!-- 查询商品Id根据商品名 -->
+	<select id="findIdByProdName" resultType="int">
+		select id from t_prodlist where uId = #{uId} and prodName = #{prodName}
+	</select>
+
+</mapper>

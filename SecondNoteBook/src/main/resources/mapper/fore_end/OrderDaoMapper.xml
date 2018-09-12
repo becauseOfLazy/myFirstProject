@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.OrderDao">
+	<!-- 查询所有未设置的订单 -->
+	<select id="findOrderWithNoSet" resultType="order">
+		select * from t_orderlist 
+		 where uId=#{entity.uId} 
+		 and status = #{entity.status}
+	</select>
+	<!-- 通过商品id获取商品 -->
+	<select id="getProdByProdId" resultType="product">
+		select * from t_prodlist where id = #{prodId}
+	</select>
+	<!-- 提交收货地址，更新订单 -->
+	<update id="toUpdateOrderObject">
+		update t_orderlist set address = #{entity.address},
+		status = #{entity.status},
+		updateTime = #{entity.updateTime}
+	</update>
+</mapper>

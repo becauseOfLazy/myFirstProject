@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.UserManageDao">
+	<!-- 查找所有的用户角色信息 -->
+	<select id="doGetOnePageUserObject" resultType="user">
+		select * from t_user limit #{entity.start},#{entity.pageSize}
+	</select>
+	<!-- 查询所有用户数量 -->
+	<select id="doGetAllUserObjectNum" resultType="int"> 
+		select count(*) from t_user 
+	</select>
+
+	<!-- 查询用户详情 -->
+	<select id="toGetUserObjectInfoById" resultType="user">
+		select * from t_user where id = #{id}
+	</select>
+	<!-- 条件查询用户 -->
+	<select id="toSearchUserObject" resultType="user">
+		select * from t_user <include refid="whereQuery"/>
+	</select>
+	<sql id="whereQuery">
+		<where>
+			<if test="searchName!=null and searchName!=''">
+				userName like "%"#{searchName}"%"
+			</if>
+			<if test="roleId!=-1">
+				and roleId = #{roleId}
+			</if>
+		
+		</where>
+	</sql>
+</mapper>
+
+
+
+
+
+
+
+

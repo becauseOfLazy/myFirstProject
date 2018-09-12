@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.IndexDao">
+	
+	<!-- 保存用户建议 -->
+	<insert id="doSaveSuggest">
+		insert into t_suggest values(null,#{uId},#{text},#{date},0)
+	</insert>
+	
+</mapper>

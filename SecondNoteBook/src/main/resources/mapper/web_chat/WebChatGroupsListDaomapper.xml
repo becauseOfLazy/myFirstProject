@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.webchat.dao.WebChatGroupsListDao">
+	
+	<!-- 创建联系群信息 -->
+	<insert id="toSaveGroupInfo">
+		insert into t_chatgroupinfo values(null,
+		#{entity.groupId},
+		#{entity.groupName},
+		#{entity.groupOwnerId},
+		#{entity.maxNumber},
+		#{entity.groupLocal},
+		#{entity.createdTime},
+		#{entity.verifyType},
+		#{entity.state},
+		#{entity.note}
+		)
+	</insert>
+	<!-- 添加联系群 -->
+	<insert id="toJoinGroup">
+		insert into t_chatgroup values(null,
+		#{entity.uId},
+		#{entity.groupId},
+		#{entity.createdTime},
+		#{entity.state}
+		)
+	</insert>
+	<!-- 通过群名模糊查询联系群 -->
+	<select id="toGetGroupsBygroupName" resultType="webChatGroup">
+		select * from t_chatgroupinfo where groupName like concat("%",#{searchName},"%") 
+	</select>
+	<!-- 通过群号查询联系群 -->
+	<select id="toGetGroupsBygroupId" resultType="webChatGroup">
+		select * from t_chatgroupinfo where groupId = #{groupId}
+	</select>
+</mapper>

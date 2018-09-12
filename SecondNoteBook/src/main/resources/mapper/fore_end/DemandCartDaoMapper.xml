@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.DemandCartDao">
+	<!-- 获取需求单关注列表 -->
+	<select id="toGetAllDemandCartObject" resultType="demand">
+		select tl.* from t_demandcart tc, t_demandlist tl where tc.demandId=tl.id and tc.uId = #{uId}
+	</select>
+	<!-- 删除需求单对象 -->
+	<delete id="toDelDemandCartObject">
+		delete from t_demandcart where demandId = #{id} and uId = #{uId}
+	</delete>
+</mapper>

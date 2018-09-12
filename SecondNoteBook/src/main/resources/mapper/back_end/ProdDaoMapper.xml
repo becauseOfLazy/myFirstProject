@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.ProdManageDao">
+	<!-- 分页查询商品 -->
+	<select id="dogetAllProdsObject" resultType="product">
+		select * from t_prodlist limit #{entity.start},#{entity.pageSize}
+	</select>
+	<!-- 查询所有商品的总数量 -->
+	<select id="dogetAllProdNumber" resultType="int">
+		select count(*) from t_prodlist
+	</select>
+	<!-- 根据id查找商品 -->
+	<select id="doFindObjectById" resultType="product">
+		select * from t_prodlist where id = #{id} 
+	</select>
+	<!-- 修改商品根据id -->
+	<update id="doUpdateObject">
+		update t_prodlist set 
+		beginDate=#{entity.beginDate},
+		endDate=#{entity.endDate},
+		status=#{entity.status},
+		updateTime=#{entity.updateTime}  
+		where id = #{entity.id}
+	</update>
+	<!-- 条件查询商品 -->
+	<select id="doSearchProdObject" resultType="product">
+		select * from t_prodlist 
+		 <include refid="whereQuery"/>
+	</select>
+	<sql id="whereQuery">
+		<where>
+			<if test="searchName!=null and searchName!=''">
+				prodName like "%"#{searchName}"%"
+			</if>
+			<if test="status!=-1 ">
+				and status = #{status}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

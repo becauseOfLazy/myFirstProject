@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.ProdDao">
+	<!-- 分页查询商品 -->
+	<select id="togetProdListByPage" resultType="product">
+		select * from t_prodlist 
+		where status = #{status} limit #{page.start} ,
+		 #{page.pageSize}
+	</select>
+	<!-- 查询所有的商品 -->
+	<select id="toGetAllLuceneObject" resultType="luceneObject" >
+		select id,prodName from t_prodlist
+	</select>
+	<!-- 查询所有商品数 -->
+	<select id="doGetProdCount" resultType="int">
+		select count(*) from t_prodlist where status = #{status}
+	</select>
+	<!-- 根据商品Id查找商品信息 -->
+	<select id="doFindProdByprodId" resultType="product">
+		select * from t_prodlist where id = #{prodId}
+	</select>
+	
+	<!-- 插入商品到购物车中-->
+	<insert id="insertObjectToCart">
+		insert into t_prodcart values(
+		null,
+		#{prodCart.prodId},
+		#{prodCart.uId},
+		#{prodCart.createdTime})
+	</insert>
+	<!-- 根据商品prodId查找商品信息 -->
+	<select id="findProdInCart" resultType="prodCart">
+		select * from t_prodcart 
+		where prodId = #{prodCart.prodId}
+		 and uId = #{prodCart.uId}
+	</select>
+	<!-- 根据prodId修改attenNum -->
+	<update id="updateAttenNumById">
+		update t_prodlist set attenNum = #{attenNum} where id = #{prodId}
+	</update>
+	<!-- 获取attenNum -->
+	<select id="getAttenNumById" resultType="int">
+		select attenNum from t_prodlist where id = #{prodId}
+	</select>
+	<!-- 查询产品 -->
+	<select id="doSearchProdByHot"  resultType="product">
+		select id,prodName,prodPrice,attenNum from t_prodlist 
+		<include refid="whereQuery"/>
+	</select>
+	 <sql id="whereQuery">
+        <where>
+        	 <if test="prodType!=null and prodType!=''">
+        	 prodName like concat("%",#{prodType},"%") 
+        	 </if>
+        	 <if test="buyType!=0">
+        	 and buyType = #{buyType} 
+        	 </if>
+        	 <if test="minPrice!=0">
+        	 and prodPrice &gt;= #{minPrice} 
+        	 </if>
+        	 <if test="maxPrice!=0">
+        	 and prodPrice &lt;= #{maxPrice}
+        	 </if>
+        </where>
+    </sql>
+</mapper>

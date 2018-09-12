@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.OrderManageDao">
+	<!-- 分页查询订单 -->
+	<select id="doGetAllOrderObject" resultType="order">
+		SELECT * FROM t_orderlist  LIMIT #{entity.start},#{entity.pageSize}
+	</select>
+	<!-- 获取订单总数 -->
+	<select id="dogetAllOrderCount" resultType="int">
+		select count(*) from t_orderlist
+	</select>
+	<!-- 条件查询订单 -->
+	<select id="doSearchOrder" resultType="order">
+		select * from t_orderlist 
+		<include refid="whereQuery"/>
+	</select>
+	<sql id="whereQuery">
+		<where>
+			<if test="key!=null and key!=''">
+				orderId like "%"#{key}"%"
+			</if>
+			<if test="status!=-1 ">
+				and status = #{status}
+			</if>
+		</where>
+	</sql>
+	<!-- 根据订单id查询订单 -->
+	<select id="doGetOrderByOrderId" resultType="order"> 
+		select * from t_orderlist where orderId = #{orderId}
+	</select>
+	<!-- 修改保存订单 -->
+	<update id="toUpdateOrderObject">
+		update t_orderlist set 
+		cancelTime = #{entity.cancelTime}, 
+		address = #{entity.address},
+		buyType = #{entity.buyType},
+		status = #{entity.status},
+		updateTime = #{entity.updateTime},
+		note = #{entity.note}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+

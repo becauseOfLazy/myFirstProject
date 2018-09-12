@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.fore_end.dao.UserDao">
+	<!-- 通过用户名查找昵称 -->
+	<select id="getNickNameByUserName" resultType="String">
+		select nickName from t_user where userName=#{userName}
+	</select>
+	<!-- 根据用户名查找用户 -->
+	<select id="getByUserName" resultType="user">
+		select * from t_user where userName=#{userName}
+	</select>
+	<!-- 通过用户id获取用户 -->
+	<select id="getUserByuId" resultType="user">
+		select * from t_user where id=#{uId}
+	</select>
+	<!-- 根据用户名查找用户Id -->
+	<select id="findIdbyUserName" resultType="int">
+		select id from t_user where userName=#{userName}
+	</select>
+	<!-- 根据用户名查找用户角色 -->
+	<select id="getRoles" resultType="String">
+		select r.roleName from t_user u,t_role r 
+		where u.roleId=r.id and u.userName=#{userName}
+	</select>
+	<!-- 根据用户名查找角色权限 -->
+	<select id="getPermissions" resultType="String">
+		select p.permissionName from t_user u,t_role r,t_permission p 
+		where u.roleId=r.id and p.roleId=r.id and u.userName=#{userName}
+	</select>
+	<!-- 存储用户 -->
+	<insert id="saveUserObject">
+		insert into t_user values( 
+		null,
+		#{entity.userName},
+		#{entity.password},
+		#{entity.nickName},
+		#{entity.email},
+		#{entity.roleId}, 
+		#{entity.createdTime}, 
+		#{entity.onlineTime}, 
+		#{entity.offlineTime}, 
+		#{entity.status},
+		#{entity.updateTime}
+		)
+	</insert>
+	<!-- 修改用户登录 -->
+	<update id="updateUserOnLine">
+		update t_user set 
+		status = #{entity.status},
+		onlineTime = #{entity.onlineTime} 
+		where userName = #{entity.userName}
+	</update>
+	<!-- 修改用户下线 -->
+	<update id="updateUserOffLine">
+		update t_user set 
+		status = #{entity.status},
+		offlineTime = #{entity.offlineTime} 
+		where userName = #{entity.userName}
+	</update>
+</mapper>

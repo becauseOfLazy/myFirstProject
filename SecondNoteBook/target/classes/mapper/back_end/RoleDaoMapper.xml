@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="my.back_end.dao.RoleManageDao">
+	<!-- 查找所有的角色信息 -->
+	<select id="doFindAllRoles" resultType="map">
+	 select t1.*,t2.roleName parentRoleName
+	 from t_role t1 left join t_role t2 on t1.parentRoleId = t2.id
+	</select>
+	 <!-- 获取zTree需要的分类数据 -->
+    <select id="doFindAllRoleNotes" 
+resultType="my.back_end.entity.Note">
+        select id,roleName name,parentRoleId parentId from t_role
+    </select>
+    <!-- 获取角色的下级角色数 -->
+    <select id="doGetRoleCountById" resultType="int">
+    	select count(*) from t_role where parentRoleId = #{id}
+    </select>
+    <!-- 删除指定的角色 -->
+    <delete id="doDeleteRoleById">
+    	delete from t_role where id = #{id}
+    </delete>
+    <!-- 根据id查找角色 -->
+    <select id="doFindRoleObjectById" resultType="map">
+    	select t1.*,t2.roleName parentRoleName
+    	from t_role t1 left join t_role t2 on t1.parentRoleId = t2.id 
+    	where t1.id = #{id}
+    </select>
+    <!-- 添加角色 -->
+    <insert id="saveRoleObject">
+    	insert into t_role values(null,#{roleName},#{parentRoleId})
+    </insert>
+    <!-- 修改角色信息 -->
+    <update id="doUpdateRoleObject">
+    	update t_role 
+    	set roleName = #{roleName},parentRoleId = #{parentRoleId} 
+    	where id = #{id}
+    </update>
+</mapper>
+
+
+
+
+
+
+
+
